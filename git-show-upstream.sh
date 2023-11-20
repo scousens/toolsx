@@ -1,0 +1,1 @@
+git for-each-ref --format='%(refname:short) -> %(upstream:short)' refs/heads/$1

@@ -1,0 +1,46 @@
+#! /bin/bash
+
+HT="Create a new <branch> in workspace based off origin/<basebranch> and push new branch to origin
+Assumes ORIGIN as remote
+
+Usage: ${0} <branch> <basebranch>
+"
+
+if [ "${1}" == "-h" ]; then
+	echo "${HT}"
+	exit 1
+fi
+if [ -z "${1}" ]; then
+	echo "You must specify the name of a branch to create"
+	echo "${HT}"
+	exit 1
+fi
+if [ -z "${2}" ]; then
+	echo "You must specify the base branch from which to create this branch (master, develop etc)"
+	echo "${HT}"
+	exit 1
+fi
+BRANCH="${1}"
+BASE="${2}"
+
+
+echo "---create branch in ORIGIN repo; create/checkout w/ tracking branch"
+git push origin origin/"${BASE}":refs/heads/"${BRANCH}" && git checkout --track -b "${BRANCH}" origin/"${BRANCH}" && git status | grep "Your branch"
+if [ $? -gt 0 ]; then
+	echo "OOOOPS"
+	exit 1
+fi
+
+echo "---branch created."
+
+exit 0
+
+#this is how to create in origin from upstream
+# fetch from upstream
+git fetch upstream
+# create a new local branch first 
+git checkout -b featurebr 
+# then reset its starting point 
+git reset --hard upstream/featurebr
+# push this to origin
+git push featurebr –u origin

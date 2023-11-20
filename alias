@@ -1,0 +1,11 @@
+echo --.alias--import
+alias ll='ls -lF'
+alias gst='git status -uno'
+alias cdg='source ~/bin/cdg.sh'
+alias ve='source ~/git/venv.py311/bin/activate'
+alias gve='source ~/bin/gve.sh'
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
+alias kdiff='open -a ~/Applications/kdiff3.app/Contents/MacOS/kdiff3'
+
+alias pinstall='pip3 install --trusted-host ci.auto.nasuni.net --extra-index-url http://ci.auto.nasuni.net/simple/' 

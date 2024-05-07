@@ -65,6 +65,10 @@ echo "branches: [$branches]"
 [[ "$?" -ne 0 ]] && exit 0
 for br in "${branches[@]}"; do
   echo $br
+  if [ "${br:0:1}" == "*" ]; then
+    echo "Cannot delete active branch: $br"
+    exit 1
+  fi
 done
 
 read -p "Nuke the MIA branches? " -n1 yn

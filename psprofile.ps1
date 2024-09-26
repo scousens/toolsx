@@ -3,12 +3,14 @@
 
 $colors = $host.privatedata
 $colors.ErrorForegroundColor = 'Cyan'
-set-alias -name ve -value ~/git/venv.py39/bin/activate.ps1
+set-alias -name ve -value ~/git/venv.py311/bin/activate.ps1
+set-alias -name gst -value 'gst.ps1'
+set-alias -name cdg -value 'cdg.ps1'
+
+# update path
+$env:PATH = "$($env:PATH):~/tools"
+$env:MYGIT_DIR = "~/git"
 
 function From-UnixEpoc($epoc) {
 	([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime
-}
-
-function hookup {
-  Connect-VIServer -Server vcenter-automation.ops.nasuni.net -User scousens@vsphere.local -Password bWTP4yhgc7aB2B-zCq2f
 }

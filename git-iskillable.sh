@@ -25,18 +25,18 @@ if git rev-parse --verify --quiet refs/stash >/dev/null 2>/dev/null; then
 	GIT_STASHES=1
 	issue=1
 fi
-if [ "$GIT_CLEAN" -eq 1 ]; then
-	echo GIT is CLEAN
+issues=$((issues+issue))
+if [ "$GIT_CLEAN" -eq 1 ] && [ "$issue" -eq "0" ]; then
+	echo "GIT is CLEAN [$(pwd)]"
 else
-	echo Directory is DIRTY
+	echo "Directory is DIRTY [$(pwd)]"
 	if [ ! -z "$GIT_DIRTY" ]; then
 		echo "Have changes"
 	fi
-	if [ "$GIT_STASHES" -eq 1 ]; then
+	if [ "$GIT_STASHES" -gt 0 ]; then
 		echo "Have stashed items"
 	fi
 fi
-issues=$((issues+issue))
 }
 
 issues=0
@@ -52,17 +52,25 @@ cb=`git branch --list | grep '\*' | sed -e 's/\*/ /'`
 echo "--$cb--"
 checkit
 
+# Find branches that have not been pushed (unpushed or no remote) 
+echo "Debugging and figuring out -- branches that are not uptodate with their remotes"
+echo --------------------------
+git log --branches --not --remotes --no-walk --decorate --oneline || issues=$((issues+1))
+echo -
+git for-each-ref --format="%(refname:short) %(push:track)" refs/heads | grep -e 'ahead\|behind' && issues=$((issues+1))
+echo --------------------------
+
 ## git non-merged branches 
-issue=0
-br=`git branch --list --no-merged | sed -e 's/\*/ /'`
-for i in ${br[@]}; do
-  echo "--$i-- not merged"
- issue=$((issue+1))
-done
-if [[ $issue -gt 0 ]]; then
-	echo "GIT has unmerged branches here!"
-fi
-issues=$((issues+issue))
+# issue=0
+# br=`git branch --list --no-merged | sed -e 's/\*/ /'`
+# for i in ${br[@]}; do
+#   echo "--$i-- not merged"
+#  issue=$((issue+1))
+# done
+# if [[ $issue -gt 0 ]]; then
+# 	echo "GIT has unmerged branches here!"
+# fi
+# issues=$((issues+issue))
 
 ## vagrant check - any VMs off here?
 if [ -e Vagrantfile ]; then

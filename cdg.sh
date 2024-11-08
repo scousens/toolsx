@@ -7,14 +7,11 @@ cd $MYGIT_DIR
 
 if [ ! -z "$d1" ]; then
   case "$d1" in
-    n | nt | ntlie )
-      d1="ntlie"
+    g | gh )
+      d1="gh"
       ;;
-    bb )
-      d1="bb"
-      ;;
-    g | gh | github )
-      d1="github"
+    n | ntlie | nt )
+      d1="nt"
       ;;
     f | fork )
       d1="fork"
@@ -43,10 +40,10 @@ if [ ! -z "$d1" ]; then
       naw | nmc )
         d2="nmc-api-wrapper"
         ;;
-      faw )
-        d2="filer-api-wrapper"
+      u )
+        d2="unity"
         ;;
-      pa )
+      pa | a )
         d2="pytest-automation"
         ;;
       * )

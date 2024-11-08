@@ -8,8 +8,8 @@ set-alias -name gst -value 'gst.ps1'
 set-alias -name cdg -value 'cdg.ps1'
 
 # update path
-$env:PATH = "$($env:PATH):~/tools"
-$env:MYGIT_DIR = "~/git"
+$env:PATH = "$($env:PATH):$($env:HOME)/tools:$($env:HOME)/bin"
+$env:MYGIT_DIR = "$($env:HOME)/git"
 
 function From-UnixEpoc($epoc) {
 	([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime

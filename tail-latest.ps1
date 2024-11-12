@@ -4,7 +4,7 @@ if ((split-path $PWD.path -leaf) -eq "logs") {
 } else {
 	$logsdir = 'logs'
 }
-$last_log_dir = get-childitem (join-path $logsdir 'test_execution_*') | select -last 1
+$last_log_dir = get-childitem (join-path $logsdir 'test_execution_2*') | select -last 1
 $logfile = Join-Path $last_log_dir.name "all-logs.log"
 Write-Host -Fore green "Following $logfile"
 Get-Content -Path $logfile -wait

@@ -16,9 +16,6 @@ if [ ! -z "$d1" ]; then
     f | fork )
       d1="fork"
       ;;
-    scoloco )
-      d1="scoloco"
-      ;;
   esac  
   if [ -d "$d1" ]; then
     cd "${d1}"
@@ -28,18 +25,6 @@ if [ ! -z "$d1" ]; then
     cd $d2
   elif [ ! -z $d2 ]; then
     case "$d2" in
-      es | env )
-        d2="env-service"
-        ;;
-      jp )
-        d2="jenkins-pipelines"
-        ;;
-      pep | penv )
-        d2="pytest-env-plugin"
-        ;;
-      naw | nmc )
-        d2="nmc-api-wrapper"
-        ;;
       u )
         d2="unity"
         ;;

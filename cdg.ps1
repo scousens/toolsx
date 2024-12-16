@@ -39,9 +39,6 @@ if ($d2) {
       "u" {
         $d2 = "unity"; break
       }
-      "jp" {
-        $d2 = "jenkins-pipelines"; break
-      }
       default {
         foreach ($name in Get-ChildItem -Attributes Directory) {
           $name = $name.name

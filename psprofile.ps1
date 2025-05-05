@@ -6,6 +6,8 @@ $colors.ErrorForegroundColor = 'Cyan'
 set-alias -name ve -value ~/git/venv.py311/bin/activate.ps1
 set-alias -name gst -value 'gst.ps1'
 set-alias -name cdg -value 'cdg.ps1'
+set-alias -name ll -value 'gci'
+set-alias -name vm-hookup -value '~/git/scoloco/misctools/vm-cleaner/vm-connect.ps1'
 
 # update path
 $env:PATH = "$($env:PATH):$($env:HOME)/tools:$($env:HOME)/bin"

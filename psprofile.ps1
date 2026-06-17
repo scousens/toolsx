@@ -16,3 +16,5 @@ $env:MYGIT_DIR = "$($env:HOME)/git"
 function From-UnixEpoc($epoc) {
 	([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime
 }
+
+function gve { param($ve); . "$($env:MYGIT_DIR)/venv.$ve/bin/Activate.ps1" }

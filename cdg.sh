@@ -10,6 +10,9 @@ if [ ! -z "$d1" ]; then
     g | gh )
       d1="gh"
       ;;
+    s | st )
+      d1="strider"
+      ;;
     n | ntlie | nt )
       d1="nt"
       ;;

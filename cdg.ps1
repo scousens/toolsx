@@ -13,6 +13,10 @@ if (Test-Path -Path $d1 -PathType 'Container') {
       $d1 = "gh"
       break
     }
+    ($_ -eq "s" -or "st") {
+      $d1 = "strider"
+      break
+    }
     ($_ -eq "n" -or "ntlie" -or "nt") {
       $d1="nt"
       break

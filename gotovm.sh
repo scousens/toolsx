@@ -3,6 +3,10 @@ if [ "$1" = "open" ]; then
   OP="open"
   shift
 fi
+if [ "$1" = "auto" ]; then
+  US="automation"
+  shift
+fi
 inifile="$HOME/bin/testvms.ini"
 test -e "$(dirname $0)/testvms.ini" && inifile="$(dirname $0)/testvms.ini"
 source "$inifile"
@@ -54,6 +58,9 @@ shift
 if [ "$OP" = "open" ]; then
   ARG="http://$IP"
   shift
+elif [ "$US" = "automation" ]; then
+  OP="ssh"
+  ARG=("automation@$IP")
 else
   OP="ssh" 
   ARG=("root@$IP" "-p222")

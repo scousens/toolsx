@@ -1,4 +1,8 @@
 #! /bin/zsh
+if [ "$1" = "-h" ]; then
+  echo "Usage: gotovm.sh [open|auto] KEY|IP"
+  exit
+fi
 if [ "$1" = "open" ]; then
   OP="open"
   shift

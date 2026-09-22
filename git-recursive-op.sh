@@ -4,8 +4,8 @@ cmd='git status'
 ###; echo "----------------------------------";'
 if [ -n "$1" ]; then 
     cmd=$*
-    echo "Doing command '$cmd'"
 fi
+echo "Doing command '$cmd'"
 
 for item in `find . -name .git -type d | xargs dirname`; do 
     echo "Doing $item"

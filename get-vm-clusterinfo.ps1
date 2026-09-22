@@ -29,9 +29,10 @@ $diskinfo = $vms | ForEach-Object {
             VMName = $vmName
             #Folder = $vm.Folder
             DiskName = $_.Name
+            MemoryGB = [int]$vm.MemoryGB
             #PowerState = $vm.PowerState
             Datastore = $_.FileName.Split(']')[0].TrimStart('[')
-            Capacity = [math]::Round($_.CapacityGB, 2)
+            Capacity = [int][math]::Round($_.CapacityGB, 2)
             StorageFormat = $_.StorageFormat
             CreateDate = $vm.CreateDate
             Owner = $Owner
@@ -46,8 +47,9 @@ $vminfo = $diskinfo | Group-Object VMName, Folder, Datastore | ForEach-Object {
 
     [PSCustomObject]@{
         VMName = $vmDatastoreDisks[0].VMName
+        MemoryGB = $vmDatastoreDisks[0].MemoryGB
         Datastore = $vmDatastoreDisks[0].Datastore
-        Capacity = [math]::Round(($vmDatastoreDisks | Measure-Object -Property Capacity -Sum).Sum, 2)
+        Capacity = [int][math]::Round(($vmDatastoreDisks | Measure-Object -Property Capacity -Sum).Sum, 2)
         StorageFormat = if ($storageFormats.Count -gt 1) { "$firstStorageFormat*" } else { $firstStorageFormat }
         CreateDate = $_.CreateDate
         Owner = $vmDatastoreDisks[0].Owner
@@ -60,7 +62,8 @@ $applianceinfo = $diskinfo | ForEach-Object {
     [PSCustomObject]@{
         ApplianceName = $applianceName
         VMName = $_.VMName
-        Capacity = $_.Capacity
+        MemoryGB = [int]$_.MemoryGB
+        Capacity = [int]$_.Capacity
         Datastore = $_.Datastore
         StorageFormat = $_.StorageFormat
         CreateDate = $_.CreateDate
@@ -76,8 +79,9 @@ $applianceinfo = $diskinfo | ForEach-Object {
 
     [PSCustomObject]@{
         ApplianceName = $applianceDatastoreDisks[0].ApplianceName
-        Capacity = [math]::Round(($applianceDatastoreDisks | Measure-Object -Property Capacity -Sum).Sum, 2)
+        Capacity = [int][math]::Round(($applianceDatastoreDisks | Measure-Object -Property Capacity -Sum).Sum, 2)
         VMCount = ($applianceDatastoreDisks | Select-Object -ExpandProperty VMName -Unique).Count
+        MemoryGB = $applianceDatastoreDisks[0].MemoryGB
         Datastore = if ($datastorelist.Count -gt 1) { "$firstDatastore*" } else { $firstDatastore }
         StorageFormat = if ($storageFormats.Count -gt 1) { "$firstStorageFormat*" } else { $firstStorageFormat }
         CreateDate = $applianceDatastoreDisks[0].CreateDate

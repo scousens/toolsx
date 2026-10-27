@@ -10,11 +10,22 @@ set-alias -name ll -value 'gci'
 set-alias -name vm-hookup -value '~/git/scoloco/misctools/vm-cleaner/vm-connect.ps1'
 
 # update path
-$env:PATH = "$($env:PATH):$($env:HOME)/tools:$($env:HOME)/bin"
-$env:MYGIT_DIR = "$($env:HOME)/git"
+if ($env:OS -eq "Windows_NT") {
+	# Windows
+	#$HOME = $env:USERPROFILE
+	$SEP=';'
+	$DELIM='\'
+} else {
+	#$HOME = $env:HOME
+	# Linux/Mac
+	$SEP=':'
+	$DELIM='/'
+}
+"$($HOME)$($DELIM)tools","$($HOME)$($DELIM)bin" | ?{ $env:path -split ';' -notcontains $_ } | %{ $env:PATH = "$($env:PATH)$SEP$_" }
+$env:MYGIT_DIR = "$($HOME)$($DELIM)git"
 
 function From-UnixEpoc($epoc) {
-	([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime
+    ([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime
 }
 
-function gve { param($ve); . "$($env:MYGIT_DIR)/venv.$ve/bin/Activate.ps1" }
+#function gve { param($ve); . "$($env:MYGIT_DIR)/venv.$ve/bin/Activate.ps1" }

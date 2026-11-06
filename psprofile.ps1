@@ -24,6 +24,11 @@ if ($env:OS -eq "Windows_NT") {
 "$($HOME)$($DELIM)tools","$($HOME)$($DELIM)bin" | ?{ $env:path -split ';' -notcontains $_ } | %{ $env:PATH = "$($env:PATH)$SEP$_" }
 $env:MYGIT_DIR = "$($HOME)$($DELIM)git"
 
+# if posh-git is available load It
+if (Get-Module -Name posh-git -ListAvailable) {
+	Import-Module posh-git
+}
+
 function From-UnixEpoc($epoc) {
     ([System.DateTimeOffset]::FromUnixTimeMilliSeconds($epoc)).DateTime
 }

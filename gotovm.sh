@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! /bin/bash
 if [ "$1" = "-h" ]; then
   echo "Usage: gotovm.sh [open|auto] KEY|IP"
   exit
@@ -15,7 +15,13 @@ inifile="$HOME/bin/testvms.ini"
 test -e "$(dirname $0)/testvms.ini" && inifile="$(dirname $0)/testvms.ini"
 source "$inifile"
 vm=`echo "$1" | tr '[:lower:]' '[:upper:]'`
-ip="${(P)vm}"
+# zsh syntax indirect expansion (no good on bash): ip="${(P)vm}"
+# bash - use nameref
+declare -n ref="$vm"
+ip="$ref"# zsh syntax indirect expansion : ip="${(P)vm}"
+# bash - use nameref
+declare -n ref="$vm"
+ip="$ref"
 if [ "$vm" != "" ] && [ "$ip" != "" ]; then
   IP=$ip
   if [ "${vm:0:3}" = "NMC" ]; then

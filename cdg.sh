@@ -7,6 +7,9 @@ cd $MYGIT_DIR
 
 if [ ! -z "$d1" ]; then
   case "$d1" in
+    s | st )
+      d1="strider"
+      ;;
     g | gh )
       d1="gh"
       ;;

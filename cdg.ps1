@@ -9,6 +9,10 @@ if (Test-Path -Path $d1 -PathType 'Container') {
   cd $d1
 } else {
   switch ($d1) {
+    ($_ -eq "s" -or "st") {
+      $d1 = "strider"
+      break
+    }
     ($_ -eq "g" -or "gh") {
       $d1 = "gh"
       break

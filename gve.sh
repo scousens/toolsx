@@ -1,4 +1,5 @@
 #! /bin/bash
+echo "Note: this needs to be run via an alias or `. gve.sh` to it does not run in a subshell"
 
 # MYGIT_DIR is set in .zshrc
 if [ ! -z "$1" ]; then

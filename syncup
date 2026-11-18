@@ -1,0 +1,5 @@
+#! /bin/bash -x
+is_wsl() { grep -qi microsoft /proc/version 2>/dev/null; }
+command -v pwsh >/dev/null && [ -f "${0%.*}.ps1" ] && exec pwsh -NoProfile -File "${0%.*}.ps1" "$@"
+$0.sh
+
